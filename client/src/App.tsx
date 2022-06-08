@@ -3,6 +3,9 @@ import { createResource, createSignal, For } from "solid-js";
 import { createClient } from "@urql/core";
 import { Box, Container } from "@hope-ui/solid";
 
+// import components
+import { Nav } from "./components/Nav";
+
 const client = createClient({
   url: "http://localhost:4000/graphql",
 });
@@ -89,11 +92,12 @@ const App: Component = () => {
         />
         <button onclick={onAdd}>Add</button>
       </div>
-      <Container fontSize="$2xl" centerContent>
-        <Box m="$2" fontSize="$2xl">
+      <Container centerContent>
+        <Box m="$2" fontSize="$2xl" bg="$bg2">
           Obsessed Demon Labz
         </Box>
       </Container>
+      <Nav/>
     </>
   );
 };
