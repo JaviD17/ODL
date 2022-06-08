@@ -1,0 +1,101 @@
+import type { Component } from "solid-js";
+import { createResource, createSignal, For } from "solid-js";
+import { createClient } from "@urql/core";
+import { Box, Container } from "@hope-ui/solid";
+
+const client = createClient({
+  url: "http://localhost:4000/graphql",
+});
+
+interface Post {
+  id: string;
+  title: string;
+  body: string;
+  published: boolean;
+}
+
+const [posts, { refetch }] = createResource(() =>
+  client
+    .query(
+      `  query {
+  drafts {
+    id
+    title
+    body
+    published
+  }
+}`
+    )
+    .toPromise()
+    .then(({ data }) => data.drafts)
+);
+
+const App: Component = () => {
+  const [title, setTitle] = createSignal("");
+  const [body, setBody] = createSignal("");
+
+  const onAdd = async () => {
+    await client
+      .mutation(
+        `
+    mutation($title: String!, $body: String!) {
+      createDraft(title: $title, body: $body) {
+        id
+        title
+        body
+        published
+      }
+    }
+    `,
+        { title: title(), body: body() }
+      )
+      .toPromise();
+    refetch();
+    setTitle("");
+    setBody("");
+  };
+
+  return (
+    <>
+      <For each={posts()}>
+        {(post: Post) => (
+          <div>
+            {/* <input
+              type="checkbox"
+              checked={post.published}
+              onclick={() => onToggle(post.id, post.published)}
+            /> */}
+            <p>
+              {post.title} : {post.body}
+            </p>
+          </div>
+        )}
+      </For>
+      <div>{title()}</div>
+      <div>
+        <label for="title">Title</label>
+        <input
+          type="text"
+          value={title()}
+          oninput={(e) => setTitle(e.currentTarget.value)}
+          name="title"
+        />
+        <label for="body">Body</label>
+        <input
+          type="text"
+          value={body()}
+          oninput={(e) => setBody(e.currentTarget.value)}
+          name="body"
+        />
+        <button onclick={onAdd}>Add</button>
+      </div>
+      <Container fontSize="$2xl" centerContent>
+        <Box m="$2" fontSize="$2xl">
+          Obsessed Demon Labz
+        </Box>
+      </Container>
+    </>
+  );
+};
+
+export default App;
