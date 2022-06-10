@@ -12,10 +12,10 @@ export const User = objectType({
     t.list.field("posts", {
       type: Post,
       //   args: { id: nonNull(idArg()) },
-      resolve(_root, args, ctx): any {
-        // console.log(_root.id);
-        const rootId: string = _root.id ? _root.id : "";
-        return ctx.db.post.findMany({ where: { authorId: rootId } });
+      resolve(parent, args, ctx): any {
+        // console.log(parent.id);
+        const parentId: string = parent.id ? parent.id : "";
+        return ctx.db.post.findMany({ where: { authorId: parentId } });
         // return ctx.db.post.findMany();
 
         // user auth then put into context to then use context.user.id insetead of args.id in the where object
@@ -29,7 +29,7 @@ export const UserQuery = extendType({
   definition(t) {
     t.list.field("users", {
       type: User,
-      resolve(_root, args, ctx): any {
+      resolve(parent, args, ctx): any {
         return ctx.db.user.findMany();
       },
     });
@@ -47,7 +47,7 @@ export const UserMutation = extendType({
         password: nonNull(stringArg()),
         // role: stringArg(),
       },
-      resolve(_root, args, ctx): any {
+      resolve(parent, args, ctx): any {
         // const userRole = args.role ? args.role : "";
         const user = {
           name: args.name,

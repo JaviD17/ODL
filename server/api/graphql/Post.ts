@@ -18,13 +18,13 @@ export const PostQuery = extendType({
   definition(t) {
     t.list.field("drafts", {
       type: Post,
-      resolve(_root, args, ctx): any {
+      resolve(parent, args, ctx): any {
         return ctx.db.post.findMany({ where: { published: false } });
       },
     });
     t.list.field("posts", {
       type: "Post",
-      resolve(_root, args, ctx): any {
+      resolve(parent, args, ctx): any {
         return ctx.db.post.findMany({ where: { published: true } });
       },
     });
@@ -43,7 +43,7 @@ export const PostMutation = extendType({
         body: nonNull(stringArg()),
         authorId: nonNull(idArg()),
       },
-      resolve(_root, args, ctx): any {
+      resolve(parent, args, ctx): any {
         // author is going to be user from context
         const draft = {
           title: args.title,
@@ -60,7 +60,7 @@ export const PostMutation = extendType({
       args: {
         draftId: nonNull(stringArg()),
       },
-      resolve(_root, args, ctx): any {
+      resolve(parent, args, ctx): any {
         return ctx.db.post.update({
           where: { id: args.draftId },
           data: {
@@ -74,7 +74,7 @@ export const PostMutation = extendType({
       args: {
         draftId: nonNull(stringArg()),
       },
-      resolve(_root, args, ctx: any) {
+      resolve(parent, args, ctx: any) {
         return ctx.db.post.delete({
           where: {
             id: args.draftId,
