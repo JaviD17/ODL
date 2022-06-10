@@ -1,11 +1,14 @@
-import { objectType, extendType, stringArg, nonNull, intArg } from "nexus";
+import { objectType, extendType, stringArg, nonNull, idArg } from "nexus";
+import { User } from "./User";
 
 export const Post = objectType({
   name: "Post",
   definition(t) {
-    t.string("id");
+    t.id("id");
     t.string("title");
+    t.string("postedOn");
     t.string("body");
+    t.id("authorId");
     t.boolean("published");
   },
 });
@@ -13,8 +16,8 @@ export const Post = objectType({
 export const PostQuery = extendType({
   type: "Query",
   definition(t) {
-    t.nonNull.list.field("drafts", {
-      type: "Post",
+    t.list.field("drafts", {
+      type: Post,
       resolve(_root, args, ctx): any {
         return ctx.db.post.findMany({ where: { published: false } });
       },
@@ -32,22 +35,28 @@ export const PostMutation = extendType({
   type: "Mutation",
   definition(t) {
     t.nonNull.field("createDraft", {
-      type: "Post",
+      type: Post,
       args: {
         title: nonNull(stringArg()),
+        postedOn: nonNull(stringArg()),
+        writtenBy: nonNull(stringArg()),
         body: nonNull(stringArg()),
+        authorId: nonNull(idArg()),
       },
       resolve(_root, args, ctx): any {
+        // author is going to be user from context
         const draft = {
           title: args.title,
+          postedOn: args.postedOn,
           body: args.body,
+          authorId: args.authorId,
           published: false,
         };
         return ctx.db.post.create({ data: draft });
       },
     });
-    t.field("publish", {
-      type: "Post",
+    t.field("publishDraft", {
+      type: Post,
       args: {
         draftId: nonNull(stringArg()),
       },
@@ -56,6 +65,19 @@ export const PostMutation = extendType({
           where: { id: args.draftId },
           data: {
             published: true,
+          },
+        });
+      },
+    });
+    t.field("deleteDraft", {
+      type: Post,
+      args: {
+        draftId: nonNull(stringArg()),
+      },
+      resolve(_root, args, ctx: any) {
+        return ctx.db.post.delete({
+          where: {
+            id: args.draftId,
           },
         });
       },

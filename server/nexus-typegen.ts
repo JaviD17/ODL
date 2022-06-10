@@ -30,12 +30,21 @@ export interface NexusGenScalars {
 export interface NexusGenObjects {
   Mutation: {};
   Post: { // root type
+    authorId?: string | null; // ID
     body?: string | null; // String
-    id?: string | null; // String
+    id?: string | null; // ID
+    postedOn?: string | null; // String
     published?: boolean | null; // Boolean
     title?: string | null; // String
   }
   Query: {};
+  User: { // root type
+    email: string; // String!
+    id?: string | null; // ID
+    name: string; // String!
+    password: string; // String!
+    role?: string | null; // String
+  }
 }
 
 export interface NexusGenInterfaces {
@@ -51,44 +60,81 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 export interface NexusGenFieldTypes {
   Mutation: { // field return type
     createDraft: NexusGenRootTypes['Post']; // Post!
-    publish: NexusGenRootTypes['Post'] | null; // Post
+    createUser: NexusGenRootTypes['User']; // User!
+    deleteDraft: NexusGenRootTypes['Post'] | null; // Post
+    publishDraft: NexusGenRootTypes['Post'] | null; // Post
   }
   Post: { // field return type
+    authorId: string | null; // ID
     body: string | null; // String
-    id: string | null; // String
+    id: string | null; // ID
+    postedOn: string | null; // String
     published: boolean | null; // Boolean
     title: string | null; // String
   }
   Query: { // field return type
-    drafts: Array<NexusGenRootTypes['Post'] | null>; // [Post]!
+    drafts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
     posts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
+    users: Array<NexusGenRootTypes['User'] | null> | null; // [User]
+  }
+  User: { // field return type
+    email: string; // String!
+    id: string | null; // ID
+    name: string; // String!
+    password: string; // String!
+    posts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
+    role: string | null; // String
   }
 }
 
 export interface NexusGenFieldTypeNames {
   Mutation: { // field return type name
     createDraft: 'Post'
-    publish: 'Post'
+    createUser: 'User'
+    deleteDraft: 'Post'
+    publishDraft: 'Post'
   }
   Post: { // field return type name
+    authorId: 'ID'
     body: 'String'
-    id: 'String'
+    id: 'ID'
+    postedOn: 'String'
     published: 'Boolean'
     title: 'String'
   }
   Query: { // field return type name
     drafts: 'Post'
     posts: 'Post'
+    users: 'User'
+  }
+  User: { // field return type name
+    email: 'String'
+    id: 'ID'
+    name: 'String'
+    password: 'String'
+    posts: 'Post'
+    role: 'String'
   }
 }
 
 export interface NexusGenArgTypes {
   Mutation: {
     createDraft: { // args
+      authorId: string; // ID!
       body: string; // String!
+      postedOn: string; // String!
       title: string; // String!
+      writtenBy: string; // String!
     }
-    publish: { // args
+    createUser: { // args
+      email: string; // String!
+      name: string; // String!
+      password: string; // String!
+    }
+    deleteDraft: { // args
+      draftId: string; // String!
+    }
+    publishDraft: { // args
       draftId: string; // String!
     }
   }

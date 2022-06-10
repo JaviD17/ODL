@@ -3,18 +3,32 @@
 
 
 type Mutation {
-  createDraft(body: String!, title: String!): Post!
-  publish(draftId: String!): Post
+  createDraft(authorId: ID!, body: String!, postedOn: String!, title: String!, writtenBy: String!): Post!
+  createUser(email: String!, name: String!, password: String!): User!
+  deleteDraft(draftId: String!): Post
+  publishDraft(draftId: String!): Post
 }
 
 type Post {
+  authorId: ID
   body: String
-  id: String
+  id: ID
+  postedOn: String
   published: Boolean
   title: String
 }
 
 type Query {
-  drafts: [Post]!
+  drafts: [Post]
   posts: [Post]
+  users: [User]
+}
+
+type User {
+  email: String!
+  id: ID
+  name: String!
+  password: String!
+  posts: [Post]
+  role: String
 }

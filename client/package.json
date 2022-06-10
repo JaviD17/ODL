@@ -19,6 +19,7 @@
     "@stitches/core": "^1.2.8",
     "@urql/core": "^2.5.0",
     "graphql": "^16.5.0",
+    "solid-app-router": "^0.3.3",
     "solid-js": "^1.4.2",
     "solid-transition-group": "^0.0.10"
   }

@@ -10,9 +10,30 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(USER)
+  posts     Post[]
+}
+
 model Post {
-  id String @id @map("_id") @default(auto()) @db.ObjectId
-  title String
-  body String
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String
+  postedOn  String
+  body      String
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  String   @db.ObjectId
   published Boolean
+}
+
+enum Role {
+  USER
+  ADMIN
 }

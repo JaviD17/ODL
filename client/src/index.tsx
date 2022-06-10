@@ -1,6 +1,7 @@
 /* @refresh reload */
 import { render } from "solid-js/web";
 import { HopeProvider, HopeThemeConfig } from "@hope-ui/solid";
+import { Router } from "solid-app-router";
 
 import "./index.css";
 import App from "./App";
@@ -20,7 +21,9 @@ const config: HopeThemeConfig = {
 render(
   () => (
     <HopeProvider config={config}>
-      <App />
+      <Router>
+        <App />
+      </Router>
     </HopeProvider>
   ),
   document.getElementById("root") as HTMLElement
