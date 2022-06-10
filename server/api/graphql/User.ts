@@ -11,14 +11,9 @@ export const User = objectType({
     t.string("role");
     t.list.field("posts", {
       type: Post,
-      //   args: { id: nonNull(idArg()) },
       resolve(parent, args, ctx): any {
-        // console.log(parent.id);
         const parentId: string = parent.id ? parent.id : "";
         return ctx.db.post.findMany({ where: { authorId: parentId } });
-        // return ctx.db.post.findMany();
-
-        // user auth then put into context to then use context.user.id insetead of args.id in the where object
       },
     });
   },
@@ -58,6 +53,29 @@ export const UserMutation = extendType({
         };
 
         return ctx.db.user.create({ data: user });
+      },
+    });
+    t.nonNull.field("updateUser", {
+      type: User,
+      args: {
+        id: nonNull(idArg()),
+        name: stringArg(),
+        email: stringArg(),
+        password: stringArg(),
+      },
+      resolve(parent, args, ctx): any {
+        const user = {
+          ...(args.name && { name: args.name }),
+          ...(args.email && { email: args.email }),
+          ...(args.password && { password: args.password }),
+        };
+
+        user ? user : undefined;
+
+        return ctx.db.user.update({
+          where: { id: args.id },
+          data: user,
+        });
       },
     });
   },
