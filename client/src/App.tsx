@@ -64,7 +64,7 @@ const App: Component = () => {
   return (
     <>
       <Nav />
-      <Container centerContent>
+      {/* <Container centerContent>
         <Box m="$2" fontSize="$2xl">
           Obsessed Demon Labz
         </Box>
@@ -74,11 +74,6 @@ const App: Component = () => {
           <For each={drafts()}>
             {(post: Post) => (
               <div>
-                {/* <input
-              type="checkbox"
-              checked={post.published}
-              onclick={() => onToggle(post.id, post.published)}
-            /> */}
                 <p>
                   {post.title} : {post.body}
                 </p>
@@ -104,7 +99,7 @@ const App: Component = () => {
           </div>
           <button onclick={onAdd}>Add</button>
         </Box>
-      </Container>
+      </Container> */}
     </>
   );
 };

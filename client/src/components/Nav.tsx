@@ -1,4 +1,4 @@
-import { Anchor, Container, Grid, GridItem, Center } from "@hope-ui/solid";
+import { Anchor, Container, Grid, GridItem, Center, Button } from "@hope-ui/solid";
 import { Component, For } from "solid-js";
 import { Routes, Route, Link } from "solid-app-router";
 import { Home } from "../pages/Home";
@@ -23,21 +23,21 @@ export const Nav: Component = () => {
       <Grid
         templateColumns="repeat(9, 1fr)"
         gap="$1"
-        fontWeight="$bold"
+        fontWeight="bold"
         mt="$8"
       >
-        <GridItem fontSize="$2xl" colSpan={2}>
+        <GridItem fontSize="$3xl" colSpan={2}>
           <Center>
             <Anchor as={Link} href="/" _hover={{ color: "$pr1" }}>
               ODL
             </Anchor>
           </Center>
         </GridItem>
-        <GridItem colStart={3} colEnd={8}>
+        <GridItem colStart={3} colEnd={8} pt="$2">
           <Grid templateColumns="repeat(5, 1fr)" gap="$1">
             <For each={links}>
               {(link) => (
-                <GridItem fontSize="$md" pt="$1_5">
+                <GridItem fontSize="$lg">
                   <Center>
                     <Anchor
                       as={Link}
@@ -52,11 +52,11 @@ export const Nav: Component = () => {
             </For>
           </Grid>
         </GridItem>
-        <GridItem fontSize="$xl" colStart={8} colEnd={10}>
+        <GridItem colStart={8} colEnd={10}>
           <Center>
-            <Anchor as={Link} href="/user" _hover={{ color: "$pr1" }}>
+            <Button fontWeight="bold" colorScheme="accent" variant="outline" size="lg" as={Link} href="/user">
               Log In
-            </Anchor>
+            </Button>
           </Center>
         </GridItem>
       </Grid>
