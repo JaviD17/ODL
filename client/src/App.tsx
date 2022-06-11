@@ -6,7 +6,7 @@ import { Box, Container } from "@hope-ui/solid";
 // import components
 import { Nav } from "./components/Nav";
 
-const client = createClient({
+export const client = createClient({
   url: "http://localhost:4000/graphql",
 });
 
