@@ -18,14 +18,14 @@ export const PostQuery = extendType({
   definition(t) {
     t.list.field("drafts", {
       type: Post,
-      resolve(parent, args, ctx): any {
-        return ctx.db.post.findMany({ where: { published: false } });
+      async resolve(parent, args, ctx): Promise<any> {
+        return await ctx.db.post.findMany({ where: { published: false } });
       },
     });
     t.list.field("posts", {
       type: "Post",
-      resolve(parent, args, ctx): any {
-        return ctx.db.post.findMany({ where: { published: true } });
+      async resolve(parent, args, ctx): Promise<any> {
+        return await ctx.db.post.findMany({ where: { published: true } });
       },
     });
   },
@@ -43,7 +43,7 @@ export const PostMutation = extendType({
         body: nonNull(stringArg()),
         authorId: nonNull(idArg()),
       },
-      resolve(parent, args, ctx): any {
+      async resolve(parent, args, ctx): Promise<any> {
         // author is going to be user from context
         const draft = {
           title: args.title,
@@ -52,7 +52,7 @@ export const PostMutation = extendType({
           authorId: args.authorId,
           published: false,
         };
-        return ctx.db.post.create({ data: draft });
+        return await ctx.db.post.create({ data: draft });
       },
     });
     t.field("publishDraft", {
@@ -60,8 +60,8 @@ export const PostMutation = extendType({
       args: {
         draftId: nonNull(stringArg()),
       },
-      resolve(parent, args, ctx): any {
-        return ctx.db.post.update({
+      async resolve(parent, args, ctx): Promise<any> {
+        return await ctx.db.post.update({
           where: { id: args.draftId },
           data: {
             published: true,
@@ -74,8 +74,8 @@ export const PostMutation = extendType({
       args: {
         draftId: nonNull(stringArg()),
       },
-      resolve(parent, args, ctx: any) {
-        return ctx.db.post.delete({
+      async resolve(parent, args, ctx): Promise<any> {
+        return await ctx.db.post.delete({
           where: {
             id: args.draftId,
           },

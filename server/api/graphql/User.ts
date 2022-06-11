@@ -11,9 +11,9 @@ export const User = objectType({
     t.string("role");
     t.list.field("posts", {
       type: Post,
-      resolve(parent, args, ctx): any {
+      async resolve(parent, args, ctx): Promise<any> {
         const parentId: string = parent.id ? parent.id : "";
-        return ctx.db.post.findMany({ where: { authorId: parentId } });
+        return await ctx.db.post.findMany({ where: { authorId: parentId } });
       },
     });
   },
@@ -24,8 +24,8 @@ export const UserQuery = extendType({
   definition(t) {
     t.list.field("users", {
       type: User,
-      resolve(parent, args, ctx): any {
-        return ctx.db.user.findMany();
+      async resolve(parent, args, ctx): Promise<any> {
+        return await ctx.db.user.findMany();
       },
     });
   },
@@ -42,7 +42,7 @@ export const UserMutation = extendType({
         password: nonNull(stringArg()),
         // role: stringArg(),
       },
-      resolve(parent, args, ctx): any {
+      async resolve(parent, args, ctx): Promise<any> {
         // const userRole = args.role ? args.role : "";
         const user = {
           name: args.name,
@@ -52,7 +52,7 @@ export const UserMutation = extendType({
           //   role: userRole,
         };
 
-        return ctx.db.user.create({ data: user });
+        return await ctx.db.user.create({ data: user });
       },
     });
     t.nonNull.field("updateUser", {
@@ -63,7 +63,7 @@ export const UserMutation = extendType({
         email: stringArg(),
         password: stringArg(),
       },
-      resolve(parent, args, ctx): any {
+      async resolve(parent, args, ctx): Promise<any> {
         const user = {
           ...(args.name && { name: args.name }),
           ...(args.email && { email: args.email }),
@@ -72,7 +72,7 @@ export const UserMutation = extendType({
 
         user ? user : undefined;
 
-        return ctx.db.user.update({
+        return await ctx.db.user.update({
           where: { id: args.id },
           data: user,
         });
@@ -83,8 +83,8 @@ export const UserMutation = extendType({
       args: {
         id: nonNull(idArg()),
       },
-      resolve(parent, args, ctx): any {
-        return ctx.db.user.delete({ where: { id: args.id } });
+      async resolve(parent, args, ctx): Promise<any> {
+        return await ctx.db.user.delete({ where: { id: args.id } });
       },
     });
     t.nonNull.field("authenticate", {
