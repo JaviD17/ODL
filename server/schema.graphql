@@ -3,9 +3,11 @@
 
 
 type Mutation {
+  authenticate(email: String!, password: String!): User!
   createDraft(authorId: ID!, body: String!, postedOn: String!, title: String!, writtenBy: String!): Post!
   createUser(email: String!, name: String!, password: String!): User!
   deleteDraft(draftId: String!): Post
+  deleteUser(id: ID!): User!
   publishDraft(draftId: String!): Post
   updateUser(email: String, id: ID!, name: String, password: String): User!
 }

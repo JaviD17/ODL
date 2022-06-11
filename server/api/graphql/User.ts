@@ -78,5 +78,29 @@ export const UserMutation = extendType({
         });
       },
     });
+    t.nonNull.field("deleteUser", {
+      type: User,
+      args: {
+        id: nonNull(idArg()),
+      },
+      resolve(parent, args, ctx): any {
+        return ctx.db.user.delete({ where: { id: args.id } });
+      },
+    });
+    t.nonNull.field("authenticate", {
+      type: "User",
+      args: {
+        email: nonNull(stringArg()),
+        password: nonNull(stringArg()),
+      },
+      async resolve(parent, args, ctx): Promise<any> {
+        const user = await ctx.db.user.findUnique({
+          where: { email: args.email },
+        });
+        const correctPassword = args.password == user?.password;
+        // return user;
+        return correctPassword ? user : "";
+      },
+    });
   },
 });
