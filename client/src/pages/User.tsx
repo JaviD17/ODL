@@ -210,9 +210,6 @@ export const User: Component = () => {
       </Show>
 
       <Show when={loggedIn()}>
-        {/* <p>
-          Hello: {userValues().id} {userValues().name}
-        </p> */}
         <Container centered centerContent my="$24">
           <Heading level="1" size="4xl" color="$accent10">Welcome Back {userValues().name}</Heading>
         </Container>
