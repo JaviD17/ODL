@@ -134,7 +134,6 @@ export interface NexusGenArgTypes {
       body: string; // String!
       postedOn: string; // String!
       title: string; // String!
-      writtenBy: string; // String!
     }
     createUser: { // args
       email: string; // String!

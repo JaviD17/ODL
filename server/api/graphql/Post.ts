@@ -39,7 +39,7 @@ export const PostMutation = extendType({
       args: {
         title: nonNull(stringArg()),
         postedOn: nonNull(stringArg()),
-        writtenBy: nonNull(stringArg()),
+        // writtenBy: nonNull(stringArg()),
         body: nonNull(stringArg()),
         authorId: nonNull(idArg()),
       },

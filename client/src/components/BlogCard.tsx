@@ -1,4 +1,3 @@
-import type { Component } from "solid-js";
 import {
   Box,
   Grid,
@@ -11,7 +10,17 @@ import {
   Spacer,
 } from "@hope-ui/solid";
 
-export const BlogCard: Component = () => {
+type Blog = {
+  id: string;
+  title: string;
+  postedOn: string;
+  body: string;
+  authorId: string;
+  published: string;
+};
+
+export const BlogCard = (props: { blog: Blog }) => {
+  const { blog } = props;
   return (
     <Box
       maxW="$md"
@@ -34,12 +43,12 @@ export const BlogCard: Component = () => {
         </Badge>
         <Spacer />
         <Text textAlign="right" color="$neutral11">
-          Posted June 12th, 2022
+          Posted {blog.postedOn}
         </Text>
       </Flex>
 
       <Heading level="2" fontSize="$3xl" ml="$4" mt="$2">
-        How To Cut 2022
+        {blog.title}
       </Heading>
       <Grid templateColumns="repeat(3,1fr)" gap="$1" ml="$4" mb="$2">
         <GridItem colSpan={2} color="$neutral11">

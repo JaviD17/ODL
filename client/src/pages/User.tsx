@@ -14,11 +14,14 @@ import {
   TabList,
   Tab,
   TabPanel,
-  Heading
+  Heading,
 } from "@hope-ui/solid";
 
-import { gql } from "@urql/core";
-import { client } from "../App";
+import { createClient, gql } from "@urql/core";
+
+const client = createClient({
+  url: "http://localhost:4000/graphql",
+});
 
 // const [createUser] = createResource(() =>
 //   client
@@ -68,12 +71,16 @@ export const User: Component = () => {
       )
       .toPromise()
       .then(({ data }) => {
-        // id = data ? data?.id : "";
+        setUserValues({
+          ...(data.createUser && { id: data.createUser.id }),
+          ...(data.createUser && { name: data.createUser.name }),
+        });
         return data.createUser;
       });
     setNameValue("");
     setEmailValue("");
     setPasswordValue("");
+    setLoggedIn(true);
   };
   const onLogIn = async () => {
     await client
@@ -211,7 +218,9 @@ export const User: Component = () => {
 
       <Show when={loggedIn()}>
         <Container centered centerContent my="$24">
-          <Heading level="1" size="4xl" color="$accent10">Welcome Back {userValues().name}</Heading>
+          <Heading level="1" size="4xl" color="$accent10">
+            Welcome Back {userValues().name}
+          </Heading>
         </Container>
       </Show>
     </>

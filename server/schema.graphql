@@ -4,7 +4,7 @@
 
 type Mutation {
   authenticate(email: String!, password: String!): User!
-  createDraft(authorId: ID!, body: String!, postedOn: String!, title: String!, writtenBy: String!): Post!
+  createDraft(authorId: ID!, body: String!, postedOn: String!, title: String!): Post!
   createUser(email: String!, name: String!, password: String!): User!
   deleteDraft(draftId: String!): Post
   deleteUser(id: ID!): User!
