@@ -1,10 +1,13 @@
 import type { Component } from "solid-js";
-import { Container } from "@hope-ui/solid";
+import { Container, Box, Heading, Text } from "@hope-ui/solid";
 
 export const Story: Component = () => {
   return (
-    <Container centered mt="$6">
-      <p>This is the story component</p>
+    <Container centerContent my="$20">
+      <Heading level={1} fontSize="$6xl" fontWeight={"$bold"}>Our Story</Heading>
+      <Box>
+        <Text>We built ODL around...</Text>
+      </Box>
     </Container>
   );
 };

@@ -1,4 +1,12 @@
-import { Anchor, Container, Grid, GridItem, Center, Button } from "@hope-ui/solid";
+import {
+  Anchor,
+  Container,
+  Grid,
+  GridItem,
+  Center,
+  Button,
+  HStack,
+} from "@hope-ui/solid";
 import { Component, For } from "solid-js";
 import { Routes, Route, Link } from "solid-app-router";
 import { Home } from "../pages/Home";
@@ -8,6 +16,9 @@ import { Shop } from "../pages/Shop";
 import { Story } from "../pages/Story";
 import { Social } from "../pages/Social";
 import { User } from "../pages/User";
+import { Cart } from "../pages/Cart";
+
+import { IconCart } from "./Icons/IconCart";
 
 const links = [
   { name: "Shop", href: "shop" },
@@ -20,12 +31,7 @@ const links = [
 export const Nav: Component = () => {
   return (
     <>
-      <Grid
-        templateColumns="repeat(9, 1fr)"
-        gap="$1"
-        fontWeight="bold"
-        mt="$8"
-      >
+      <Grid templateColumns="repeat(9, 1fr)" gap="$1" fontWeight="bold" mt="$8">
         <GridItem fontSize="$3xl" colSpan={2}>
           <Center>
             <Anchor as={Link} href="/" _hover={{ color: "$pr1" }}>
@@ -54,9 +60,25 @@ export const Nav: Component = () => {
         </GridItem>
         <GridItem colStart={8} colEnd={10}>
           <Center>
-            <Button fontWeight="bold" colorScheme="accent" variant="outline" size="lg" as={Link} href="/user">
-              Log In
-            </Button>
+            <HStack spacing="24px">
+              <Anchor
+                as={Link}
+                href={'/cart'}
+                _hover={{ color: "$pr1" }}
+              >
+              <IconCart />
+              </Anchor>
+              <Button
+                fontWeight="bold"
+                colorScheme="accent"
+                variant="outline"
+                size="lg"
+                as={Link}
+                href="/user"
+              >
+                Log In
+              </Button>
+            </HStack>
           </Center>
         </GridItem>
       </Grid>
@@ -68,6 +90,7 @@ export const Nav: Component = () => {
         <Route path="/story" element={<Story />} />
         <Route path="/social" element={<Social />} />
         <Route path="/user" element={<User />} />
+        <Route path="/cart" element={<Cart />} />
       </Routes>
     </>
   );

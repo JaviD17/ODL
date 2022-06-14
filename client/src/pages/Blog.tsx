@@ -42,7 +42,7 @@ export const Blog: Component = () => {
       <Grid templateColumns="repeat(3,1fr)" width="100%" mb="$4">
         <GridItem colStart={2} colEnd={3}>
           <Flex justifyContent={"center"} alignItems={"flex-end"}>
-            <Heading level={1} fontSize="$6xl">
+            <Heading level={1} fontSize="$6xl" fontWeight={"$bold"}>
               Blog
             </Heading>
           </Flex>
