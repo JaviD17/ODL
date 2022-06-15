@@ -34,7 +34,7 @@ export const Nav: Component = () => {
       <Grid templateColumns="repeat(9, 1fr)" gap="$1" fontWeight="bold" mt="$8">
         <GridItem fontSize="$3xl" colSpan={2}>
           <Center>
-            <Anchor as={Link} href="/" _hover={{ color: "$pr1" }}>
+            <Anchor as={Link} href="/" _hover={{ color: "$accent10" }}>
               ODL
             </Anchor>
           </Center>
@@ -48,7 +48,7 @@ export const Nav: Component = () => {
                     <Anchor
                       as={Link}
                       href={`/${link.href}`}
-                      _hover={{ color: "$pr1" }}
+                      _hover={{ color: "$accent10" }}
                     >
                       {link.name}
                     </Anchor>
@@ -61,12 +61,8 @@ export const Nav: Component = () => {
         <GridItem colStart={8} colEnd={10}>
           <Center>
             <HStack spacing="24px">
-              <Anchor
-                as={Link}
-                href={'/cart'}
-                _hover={{ color: "$pr1" }}
-              >
-              <IconCart />
+              <Anchor as={Link} href={"/cart"} _hover={{ color: "$accent10" }}>
+                <IconCart />
               </Anchor>
               <Button
                 fontWeight="bold"
