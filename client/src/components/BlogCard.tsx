@@ -8,7 +8,10 @@ import {
   Flex,
   Text,
   Spacer,
+  Anchor,
 } from "@hope-ui/solid";
+
+import { Link } from "solid-app-router";
 
 type Blog = {
   id: string;
@@ -48,7 +51,9 @@ export const BlogCard = (props: { blog: Blog }) => {
       </Flex>
 
       <Heading level="2" fontSize="$3xl" ml="$4" mt="$2">
-        {blog.title}
+        <Anchor as={Link} href={`${blog.id}`} _hover={{ color: "$accent10" }}>
+          {blog.title}
+        </Anchor>
       </Heading>
       <Grid templateColumns="repeat(3,1fr)" gap="$1" ml="$4" mb="$2">
         <GridItem colSpan={2} color="$neutral11">

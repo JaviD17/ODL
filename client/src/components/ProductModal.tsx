@@ -1,4 +1,5 @@
 import type { Component } from "solid-js";
+
 import {
   Button,
   createDisclosure,
@@ -16,23 +17,23 @@ import {
   Input,
   VStack,
 } from "@hope-ui/solid";
-import { BlogForm } from "./BlogForm";
+import { ProductForm } from "./ProductForm";
 
-export const BlogModal: Component = () => {
+export const ProductModal: Component = () => {
   const { isOpen, onOpen, onClose } = createDisclosure();
 
   return (
     <>
       <Button colorScheme="accent" onClick={onOpen}>
-        Create Draft
+        Create Product
       </Button>
       <Modal opened={isOpen()} onClose={onClose} size="xl">
         <ModalOverlay />
         <ModalContent>
           <ModalCloseButton />
-          <ModalHeader>New Draft</ModalHeader>
+          <ModalHeader>New Product</ModalHeader>
           <ModalBody>
-            <BlogForm />
+            <ProductForm />
           </ModalBody>
           <ModalFooter>
             <Button colorScheme="accent" onClick={onClose}>

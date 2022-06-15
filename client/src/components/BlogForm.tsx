@@ -1,3 +1,4 @@
+import type { Component } from "solid-js";
 import {
   FormControl,
   FormLabel,
@@ -16,7 +17,7 @@ const client = createClient({
   url: "http://localhost:4000/graphql",
 });
 
-export const BlogForm = () => {
+export const BlogForm: Component = () => {
   const [title, setTitle] = createSignal("");
   const [postedOn, setPostedOn] = createSignal("");
   const [body, setBody] = createSignal("");
