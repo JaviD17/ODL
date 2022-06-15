@@ -33,6 +33,19 @@ model Post {
   published Boolean
 }
 
+model Product {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  collection String
+  type       String
+  title      String
+  body       String
+  price      String
+  size       String
+  color      String
+}
+
 enum Role {
   USER
   ADMIN

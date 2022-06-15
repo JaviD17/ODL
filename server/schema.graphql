@@ -5,10 +5,13 @@
 type Mutation {
   authenticate(email: String!, password: String!): User!
   createDraft(authorId: ID!, body: String!, postedOn: String!, title: String!): Post!
+  createProduct(body: String!, collection: String!, color: String!, price: String!, size: String!, title: String!, type: String!): Product!
   createUser(email: String!, name: String!, password: String!): User!
   deleteDraft(draftId: String!): Post
+  deleteProduct(id: ID!): Product!
   deleteUser(id: ID!): User!
   publishDraft(draftId: String!): Post
+  updateProduct(body: String, collection: String, color: String, id: ID!, price: String, size: String, title: String, type: String): Product!
   updateUser(email: String, id: ID!, name: String, password: String): User!
 }
 
@@ -21,9 +24,21 @@ type Post {
   title: String
 }
 
+type Product {
+  body: String
+  collection: String
+  color: String
+  id: ID
+  price: String
+  size: String
+  title: String
+  type: String
+}
+
 type Query {
   drafts: [Post]
   posts: [Post]
+  products: [Product]
   users: [User]
 }
 

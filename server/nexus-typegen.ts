@@ -37,6 +37,16 @@ export interface NexusGenObjects {
     published?: boolean | null; // Boolean
     title?: string | null; // String
   }
+  Product: { // root type
+    body?: string | null; // String
+    collection?: string | null; // String
+    color?: string | null; // String
+    id?: string | null; // ID
+    price?: string | null; // String
+    size?: string | null; // String
+    title?: string | null; // String
+    type?: string | null; // String
+  }
   Query: {};
   User: { // root type
     email: string; // String!
@@ -61,10 +71,13 @@ export interface NexusGenFieldTypes {
   Mutation: { // field return type
     authenticate: NexusGenRootTypes['User']; // User!
     createDraft: NexusGenRootTypes['Post']; // Post!
+    createProduct: NexusGenRootTypes['Product']; // Product!
     createUser: NexusGenRootTypes['User']; // User!
     deleteDraft: NexusGenRootTypes['Post'] | null; // Post
+    deleteProduct: NexusGenRootTypes['Product']; // Product!
     deleteUser: NexusGenRootTypes['User']; // User!
     publishDraft: NexusGenRootTypes['Post'] | null; // Post
+    updateProduct: NexusGenRootTypes['Product']; // Product!
     updateUser: NexusGenRootTypes['User']; // User!
   }
   Post: { // field return type
@@ -75,9 +88,20 @@ export interface NexusGenFieldTypes {
     published: boolean | null; // Boolean
     title: string | null; // String
   }
+  Product: { // field return type
+    body: string | null; // String
+    collection: string | null; // String
+    color: string | null; // String
+    id: string | null; // ID
+    price: string | null; // String
+    size: string | null; // String
+    title: string | null; // String
+    type: string | null; // String
+  }
   Query: { // field return type
     drafts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
     posts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
+    products: Array<NexusGenRootTypes['Product'] | null> | null; // [Product]
     users: Array<NexusGenRootTypes['User'] | null> | null; // [User]
   }
   User: { // field return type
@@ -94,10 +118,13 @@ export interface NexusGenFieldTypeNames {
   Mutation: { // field return type name
     authenticate: 'User'
     createDraft: 'Post'
+    createProduct: 'Product'
     createUser: 'User'
     deleteDraft: 'Post'
+    deleteProduct: 'Product'
     deleteUser: 'User'
     publishDraft: 'Post'
+    updateProduct: 'Product'
     updateUser: 'User'
   }
   Post: { // field return type name
@@ -108,9 +135,20 @@ export interface NexusGenFieldTypeNames {
     published: 'Boolean'
     title: 'String'
   }
+  Product: { // field return type name
+    body: 'String'
+    collection: 'String'
+    color: 'String'
+    id: 'ID'
+    price: 'String'
+    size: 'String'
+    title: 'String'
+    type: 'String'
+  }
   Query: { // field return type name
     drafts: 'Post'
     posts: 'Post'
+    products: 'Product'
     users: 'User'
   }
   User: { // field return type name
@@ -135,6 +173,15 @@ export interface NexusGenArgTypes {
       postedOn: string; // String!
       title: string; // String!
     }
+    createProduct: { // args
+      body: string; // String!
+      collection: string; // String!
+      color: string; // String!
+      price: string; // String!
+      size: string; // String!
+      title: string; // String!
+      type: string; // String!
+    }
     createUser: { // args
       email: string; // String!
       name: string; // String!
@@ -143,11 +190,24 @@ export interface NexusGenArgTypes {
     deleteDraft: { // args
       draftId: string; // String!
     }
+    deleteProduct: { // args
+      id: string; // ID!
+    }
     deleteUser: { // args
       id: string; // ID!
     }
     publishDraft: { // args
       draftId: string; // String!
+    }
+    updateProduct: { // args
+      body?: string | null; // String
+      collection?: string | null; // String
+      color?: string | null; // String
+      id: string; // ID!
+      price?: string | null; // String
+      size?: string | null; // String
+      title?: string | null; // String
+      type?: string | null; // String
     }
     updateUser: { // args
       email?: string | null; // String
